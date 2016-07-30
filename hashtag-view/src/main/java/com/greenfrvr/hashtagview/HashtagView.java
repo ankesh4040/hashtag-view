@@ -753,7 +753,7 @@ public class HashtagView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (isInSelectMode) {
-                    handleSelection(item);
+                    handleSelection(item, v);
                 } else {
                     handleClick(item);
                 }
@@ -775,13 +775,13 @@ public class HashtagView extends LinearLayout {
         textView.measure(0, 0);
     }
 
-    private void handleSelection(ItemData item) {
+    private void handleSelection(ItemData item, View v) {
         item.select(leftDrawable, leftSelectedDrawable, rightDrawable, rightSelectedDrawable);
         item.decorateText(transformer);
 
         if (selectListeners != null) {
             for (TagsSelectListener listener : selectListeners) {
-                listener.onItemSelected(item.data, item.isSelected);
+                listener.onItemSelected(item.data, item.isSelected, v);
             }
         }
     }
@@ -805,7 +805,7 @@ public class HashtagView extends LinearLayout {
      * Listener used to handle item selection events.
      */
     public interface TagsSelectListener {
-        void onItemSelected(Object item, boolean selected);
+        void onItemSelected(Object item, boolean selected, View v);
     }
 
     /**

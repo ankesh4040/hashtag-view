@@ -247,7 +247,6 @@ public class HashtagView extends LinearLayout {
         return true;
     }
     
-    @NonNull DataTransform<T> transformer
     
     public <T> boolean addItem(@NonNull T item , @NonNull DataTransform<T> transformer) {
         if (!isDynamic) return false;

@@ -246,6 +246,26 @@ public class HashtagView extends LinearLayout {
         getViewTreeObserver().addOnPreDrawListener(preDrawListener);
         return true;
     }
+    
+    @NonNull DataTransform<T> transformer
+    
+    public <T> boolean addItem(@NonNull T item , @NonNull DataTransform<T> transformer) {
+        if (!isDynamic) return false;
+
+        ItemData itemData = new ItemData<>(item);
+        if (viewMap.values().contains(itemData)) return false;
+
+        if (viewMap != null) {
+            data.addAll(viewMap.values());
+            viewMap.clear();
+        }
+        data.add(itemData);
+
+        this.transformer = transformer;
+        getViewTreeObserver().addOnPreDrawListener(preDrawListener);
+        return true;
+    }
+    
 
     /**
      * Dynamically removes given item from a widget if it is already presented in a widget.

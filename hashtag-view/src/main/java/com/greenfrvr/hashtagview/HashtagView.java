@@ -140,6 +140,7 @@ public class HashtagView extends LinearLayout {
 
     private DataTransform transformer = DefaultTransform.newInstance();
     private DataSelector selector = DefaultSelector.newInstance();
+    private DataViewBackgroundDrawable drawabletransformer = DefaultBackgroundTransformer.newInstance();
 
     private final ViewTreeObserver.OnPreDrawListener preDrawListener = new ViewTreeObserver.OnPreDrawListener() {
         @Override
@@ -222,6 +223,13 @@ public class HashtagView extends LinearLayout {
         this.selector = selector;
         setData(list, transformer);
     }
+
+
+    public <T> void setData(@NonNull List<T> list, @NonNull DataTransform<T> transformer, @NonNull DataSelector<T> selector, @NonNull DataViewBackgroundDrawable<T> drawabletransformer) {
+        this.drawabletransformer = drawabletransformer;
+        setData(list, transformer, selector);
+    }
+
 
     /**
      * Dynamically adds new item to a widget.
@@ -758,7 +766,7 @@ public class HashtagView extends LinearLayout {
 
     private View inflateItemView(final ItemData item) {
         ViewGroup itemLayout = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.layout_item, this, false);
-        itemLayout.setBackgroundResource(backgroundDrawable);
+        itemLayout.setBackgroundResource(drawabletransformer.setbackgroundDrawableAtViewItem(item.data));
         itemLayout.setPadding(itemPaddingLeft, itemPaddingTop, itemPaddingRight, itemPaddingBottom);
         itemLayout.setMinimumWidth(minItemWidth);
         try {
@@ -835,6 +843,11 @@ public class HashtagView extends LinearLayout {
     public interface DataTransform<T> {
         CharSequence prepare(T item);
     }
+    
+    public interface DataViewBackgroundDrawable<T> {
+        int setbackgroundDrawableAtViewItem(T item);
+    }
+
 
     /**
      * Prepare the formatting and appearance of data to be displayed on each item, for both selected and

@@ -1,0 +1,18 @@
+package com.greenfrvr.hashtagview;
+
+/**
+ * Created by ankesh4040
+ */
+class DefaultBackgroundTransformer<T> implements HashtagView.DataViewBackgroundDrawable<T> {
+
+    public static DefaultBackgroundTransformer newInstance() {
+        return new DefaultBackgroundTransformer<>();
+    }
+
+    private DefaultBackgroundTransformer(){}
+
+    @Override
+    public int setbackgroundDrawableAtViewItem(T item) {
+        return 0;
+    }
+}

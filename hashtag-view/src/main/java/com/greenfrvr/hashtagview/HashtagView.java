@@ -140,7 +140,12 @@ public class HashtagView extends LinearLayout {
 
     private DataTransform transformer = DefaultTransform.newInstance();
     private DataSelector selector = DefaultSelector.newInstance();
-    private DataViewBackgroundDrawable drawabletransformer = DefaultBackgroundTransformer.newInstance();
+    private DataViewBackgroundDrawable drawabletransformer = new DataViewBackgroundDrawable() {
+        @Override
+        public int setbackgroundDrawableAtViewItem(Object item) {
+            return 0;
+        }
+    };
 
     private final ViewTreeObserver.OnPreDrawListener preDrawListener = new ViewTreeObserver.OnPreDrawListener() {
         @Override
